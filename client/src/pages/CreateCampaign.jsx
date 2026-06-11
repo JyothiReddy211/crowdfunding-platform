@@ -1,14 +1,25 @@
 import { useState } from "react";
 import API from "../services/api";
 
-function CreateCampaign() {
-  const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    targetAmount: "",
-    deadline: "",
-  });
+const campaignCategories = [
+  "Education",
+  "Medical",
+  "Technology",
+  "Startup",
+  "Environment",
+  "Charity",
+  "Other",
+];
 
+function CreateCampaign() {
+ const [formData, setFormData] = useState({
+  title: "",
+  description: "",
+  image: "",
+  category: "",
+  targetAmount: "",
+  deadline: "",
+});
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -38,11 +49,13 @@ function CreateCampaign() {
       );
 
       setFormData({
-        title: "",
-        description: "",
-        targetAmount: "",
-        deadline: "",
-      });
+  title: "",
+  description: "",
+  image: "",
+  category: "",
+  targetAmount: "",
+  deadline: "",
+});
 
     } catch (error) {
       alert(
@@ -118,6 +131,46 @@ function CreateCampaign() {
             />
           </div>
 
+          <div className="mb-3">
+            <label className="form-label">
+              Category
+            </label>
+
+            <select
+              name="category"
+              className="form-control"
+              value={formData.category}
+              onChange={handleChange}
+              required
+            >
+              <option value="">
+                Select a category
+              </option>
+              {campaignCategories.map((category) => (
+                <option
+                  value={category}
+                  key={category}
+                >
+                  {category}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="mb-3">
+  <label className="form-label">
+    Campaign Image URL
+  </label>
+
+  <input
+    type="text"
+    name="image"
+    className="form-control"
+    placeholder="Paste image URL"
+    value={formData.image}
+    onChange={handleChange}
+  />
+</div>
           <div className="mb-3">
             <label className="form-label">
               Target Amount (₹)

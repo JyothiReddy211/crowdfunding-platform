@@ -2,6 +2,16 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import API from "../services/api";
 
+const campaignCategories = [
+  "Education",
+  "Medical",
+  "Technology",
+  "Startup",
+  "Environment",
+  "Charity",
+  "Other",
+];
+
 function EditCampaign() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -9,6 +19,7 @@ function EditCampaign() {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
+    category: "",
     targetAmount: "",
     deadline: "",
   });
@@ -24,6 +35,8 @@ function EditCampaign() {
           title: res.data.title,
           description:
             res.data.description,
+          category:
+            res.data.category || "",
           targetAmount:
             res.data.targetAmount,
           deadline:
@@ -121,6 +134,32 @@ function EditCampaign() {
               handleChange
             }
           />
+
+          <select
+            name="category"
+            className="form-control mb-3"
+            value={
+              formData.category
+            }
+            onChange={
+              handleChange
+            }
+            required
+          >
+            <option value="">
+              Select a category
+            </option>
+            {campaignCategories.map(
+              (category) => (
+                <option
+                  value={category}
+                  key={category}
+                >
+                  {category}
+                </option>
+              )
+            )}
+          </select>
 
           <input
             type="number"

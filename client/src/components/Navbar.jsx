@@ -1,73 +1,122 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 
 function Navbar() {
-  const token = localStorage.getItem("token");
-  console.log("TOKEN:", token);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [token, setToken] = useState(() => localStorage.getItem("token"));
+
+  useEffect(() => {
+    const syncAuthState = () => {
+      setToken(localStorage.getItem("token"));
+    };
+
+    window.addEventListener("storage", syncAuthState);
+    window.addEventListener("auth-change", syncAuthState);
+
+    return () => {
+      window.removeEventListener("storage", syncAuthState);
+      window.removeEventListener("auth-change", syncAuthState);
+    };
+  }, []);
+
+  const closeMenus = () => {
+    setMenuOpen(false);
+    setUserMenuOpen(false);
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    window.dispatchEvent(new Event("auth-change"));
+    closeMenus();
     window.location.href = "/";
   };
 
+  const navClass = ({ isActive }) =>
+    `nav-link-modern${isActive ? " active" : ""}`;
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-      <div className="container">
+    <header className={`nav-shell${menuOpen ? " menu-open" : ""}`}>
+      <div className="nav-inner">
+        <Link className="brand-logo" to="/" onClick={closeMenus}>
+          <span className="brand-mark" aria-hidden="true">
+            CF
+          </span>
+          <span>CrowdFund</span>
+        </Link>
 
-        <Link
-  className="navbar-brand fw-bold fs-3 text-danger"
-  to="/"
->
-  CROWD FUNDING
-</Link>
-
-        <div className="navbar-nav ms-auto">
-
-          <Link className="nav-link" to="/">
+        <nav className="nav-links" aria-label="Primary navigation">
+          <NavLink className={navClass} to="/" onClick={closeMenus}>
             Home
-          </Link>
-
-          <Link
-            className="nav-link"
-            to="/create"
-          >
+          </NavLink>
+          <NavLink className={navClass} to="/create" onClick={closeMenus}>
             Create Campaign
-          </Link>
-
-          <Link
-            className="nav-link"
-            to="/my-campaigns"
-          >
+          </NavLink>
+          <NavLink className={navClass} to="/my-campaigns" onClick={closeMenus}>
             My Campaigns
-          </Link>
+          </NavLink>
+        </nav>
 
+        <div className="nav-actions">
           {!token ? (
             <>
-              <Link
-                className="nav-link"
-                to="/login"
-              >
+              <Link className="btn-ghost-brand" to="/login" onClick={closeMenus}>
                 Login
               </Link>
-
-              <Link
-                className="nav-link"
-                to="/register"
-              >
+              <Link className="btn-brand" to="/register" onClick={closeMenus}>
                 Register
               </Link>
             </>
           ) : (
-            <button
-              className="btn btn-danger ms-3"
-              onClick={handleLogout}
-            >
-              Logout
-            </button>
-          )}
+            <div className="user-menu">
+              <button
+                className="user-menu-toggle"
+                type="button"
+                aria-expanded={userMenuOpen}
+                onClick={() => setUserMenuOpen((current) => !current)}
+              >
+                <span className="avatar-dot" aria-hidden="true">
+                  U
+                </span>
+                Account
+              </button>
 
+              {userMenuOpen && (
+                <div className="user-dropdown">
+                  <Link to="/my-campaigns" onClick={closeMenus}>
+                    My Campaigns
+                  </Link>
+                  <Link to="/create" onClick={closeMenus}>
+                    Start a Campaign
+                  </Link>
+                  <button
+                    className="dropdown-button"
+                    type="button"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
         </div>
+
+        <button
+          className="mobile-menu-button"
+          type="button"
+          aria-label="Toggle navigation menu"
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((current) => !current)}
+        >
+          <span className="hamburger-lines" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+          </span>
+        </button>
       </div>
-    </nav>
+    </header>
   );
 }
 

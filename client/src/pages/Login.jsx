@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import API from "../services/api";
 
@@ -9,6 +9,12 @@ function Login() {
     email: "",
     password: "",
   });
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/");
+    }
+  }, [navigate]);
 
   const handleChange = (e) => {
     setFormData({
@@ -30,6 +36,7 @@ function Login() {
         "token",
         res.data.token
       );
+      window.dispatchEvent(new Event("auth-change"));
 
       alert("Login Successful");
 

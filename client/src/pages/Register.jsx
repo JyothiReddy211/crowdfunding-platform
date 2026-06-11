@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import API from "../services/api";
 
@@ -10,6 +10,12 @@ function Register() {
     email: "",
     password: "",
   });
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/");
+    }
+  }, [navigate]);
 
   const handleChange = (e) => {
     setFormData({

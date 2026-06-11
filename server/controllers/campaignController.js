@@ -6,12 +6,16 @@ const createCampaign = async (req, res) => {
       title,
       description,
       targetAmount,
-      deadline
+      deadline,
+      image,
+      category
     } = req.body;
 
     const campaign = await Campaign.create({
       title,
       description,
+      image,
+      category,
       targetAmount,
       deadline,
 
