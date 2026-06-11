@@ -165,13 +165,18 @@ GET  /api/donations/:campaignId
 * Email Notifications
 * Admin Dashboard
 ---
-<img width="929" height="392" alt="Screenshot 2026-06-04 215813" src="https://github.com/user-attachments/assets/2c60090e-d60f-4b12-be13-23d17ddbbe2a" />
+<img width="944" height="427" alt="image" src="https://github.com/user-attachments/assets/c8cbf1d4-9963-4ca5-9c52-41b3a21bc696" />
 
-<img width="594" height="407" alt="Screenshot 2026-06-04 215802" src="https://github.com/user-attachments/assets/05dca68d-c51d-40b0-8f9d-79ab6ec4494c" />
+<img width="944" height="337" alt="image" src="https://github.com/user-attachments/assets/2733a16b-695a-4056-afd0-8b209bba0d69" />
 
-<img width="864" height="417" alt="Screenshot 2026-06-04 215740" src="https://github.com/user-attachments/assets/18990c77-5f27-4f7d-b229-5aa00c40944b" />
+<img width="929" height="377" alt="image" src="https://github.com/user-attachments/assets/043b7fd0-3a03-4aed-aa9b-240d34bc8205" />
 
-<img width="851" height="376" alt="image" src="https://github.com/user-attachments/assets/d265f229-16c3-44dd-a120-95b4e45d9356" />
+<img width="944" height="376" alt="image" src="https://github.com/user-attachments/assets/255e7c00-3271-4bf9-ac70-8912df4fb66f" />
+
+<img width="943" height="380" alt="image" src="https://github.com/user-attachments/assets/c5798cb4-dc96-4aad-9bbc-08fe137f61fc" />
+
+<img width="948" height="440" alt="image" src="https://github.com/user-attachments/assets/08eea7c9-8495-42c9-9e48-fa1b6cc4fccb" />
+
 
 
 # Author
